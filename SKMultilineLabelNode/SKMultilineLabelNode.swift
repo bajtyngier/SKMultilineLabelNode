@@ -25,7 +25,7 @@ import SpriteKit
 
 class SKMultilineLabelNode: SKNode {
 	
-	var text:String { didSet { configure() } }
+	var text:String? { didSet { configure() } }
 	var fontName:String? { didSet { configure() } }
 	var fontSize:CGFloat { didSet { configure() } }
 	var fontColor:SKColor { didSet { configure() } }
@@ -39,7 +39,7 @@ class SKMultilineLabelNode: SKNode {
 		return CGFloat(labels.count) * lineHeight - (lineHeight - fontSize)
 	}
 	
-	init(text:String, fontName:String? = nil, fontSize:CGFloat, fontColor:SKColor = SKColor.white, lineHeight:CGFloat? = nil, horizontalAlignment:SKLabelHorizontalAlignmentMode = .center, verticalAlignment:SKLabelVerticalAlignmentMode = .center) {
+	init(text:String? = nil, fontName:String? = nil, fontSize:CGFloat = 32, fontColor:SKColor = SKColor.white, lineHeight:CGFloat? = nil, horizontalAlignment:SKLabelHorizontalAlignmentMode = .center, verticalAlignment:SKLabelVerticalAlignmentMode = .center) {
 		self.text = text
 		self.fontName = fontName
 		self.fontSize = fontSize
@@ -56,6 +56,7 @@ class SKMultilineLabelNode: SKNode {
 	}
 	
 	private func configure() {
+		guard let text = text else { return }
 		//Clear current labels if any
 		for label in labels {
 			label.removeFromParent()
